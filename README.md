@@ -43,17 +43,14 @@ The Streamlit UI (in `app.py`) contains the following pages (select from the sid
 - `ℹ️ About`: Project details and model performance metrics from `models/metadata.pkl`.
 
 ## Demo Video
-Add a 2–3 minute demo video link here:
-- Demo: https://example.com/demo (replace with your actual video URL)
+- Demo: 
 
-## Author / Contact
-- Name: [Your Name Here]
-- Email / Profile: [Add your contact details or GitHub link]
+## Report
+The link to access the report is: 
+
+## Project By:
+- Name: Lakshika Garg
+- Enrollment no. : 24115090
+- Email: lakshika_g@ee.iitr.ac.in
 
 ---
-
-If you want, I can:
-- run a quick test to load models and perform a sample prediction, or
-- start the Streamlit app here and report any runtime errors.
-
-Replace placeholders (demo URL and author details) with your real information before sharing the repo.
