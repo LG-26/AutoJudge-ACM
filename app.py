@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 import utils
+from scipy.sparse import hstack
 
 st.set_page_config(
     page_title="AutoJudge - Problem Difficulty Analyzer",
@@ -39,7 +40,22 @@ st.markdown("""
 def load_models():
     """Load all trained models"""
     try:
-        vectorizer = joblib.load("models/text_vectorizer.pkl")
+        try:
+            vec_word = joblib.load("models/text_vectorizer_word.pkl")
+            vec_char = joblib.load("models/text_vectorizer_char.pkl")
+            class CombinedVectorizer:
+                def __init__(self, w, c):
+                    self.w = w
+                    self.c = c
+                def transform(self, texts):
+                    wv = self.w.transform(texts)
+                    cv = self.c.transform(texts)
+                    return hstack([wv, cv])
+
+            vectorizer = CombinedVectorizer(vec_word, vec_char)
+        except Exception:
+            vectorizer = joblib.load("models/text_vectorizer.pkl")
+
         scaler = joblib.load("models/numerical_scaler.pkl")
         classifier = joblib.load("models/difficulty_classifier.pkl")
         regressor = joblib.load("models/score_regressor.pkl")
