@@ -181,8 +181,28 @@ def get_prediction_details(classifier, regressor, text_vector, numerical_feature
     Returns:
         predicted_class, predicted_score, confidence, prob_dict
     """
-    feature_values = np.array([list(numerical_features.values())])
-    
+    # Build feature vector aligned with scaler expectations
+    provided_vals = list(numerical_features.values())
+
+    if hasattr(scaler, 'feature_names_in_'):
+        feature_names = list(scaler.feature_names_in_)
+        feature_values = np.array([[numerical_features.get(n, 0.0) for n in feature_names]])
+    else:
+        # Fallback: determine expected feature count from scaler's learned attributes
+        try:
+            expected_n = int(getattr(scaler, 'n_features_in_', getattr(scaler, 'mean_', None).shape[0]))
+        except Exception:
+            expected_n = len(provided_vals)
+
+        if len(provided_vals) == expected_n:
+            feature_values = np.array([provided_vals])
+        elif len(provided_vals) < expected_n:
+            padded = provided_vals + [0.0] * (expected_n - len(provided_vals))
+            feature_values = np.array([padded])
+        else:
+            # More provided than expected: truncate and warn
+            feature_values = np.array([provided_vals[:expected_n]])
+
     numerical_scaled = scaler.transform(feature_values)
     
     combined_features = hstack([csr_matrix(numerical_scaled), text_vector])
