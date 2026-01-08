@@ -43,7 +43,9 @@ The Streamlit UI (in `app.py`) contains the following pages (select from the sid
 - `ℹ️ About`: Project details and model performance metrics from `models/metadata.pkl`.
 
 ## Demo Video
-- Demo: 
+- Demo: https://drive.google.com/file/d/1JYLAjjvw6sRCEa1fTlgpfmgxPs2b56Tv/view?usp=drive_link
+
+## Report: https://drive.google.com/file/d/1K_2GUEgFlDLKhS7oxQPdjawzvnuLPxfM/view?usp=sharing
 
 ## Report
 The link to access the report is: 
